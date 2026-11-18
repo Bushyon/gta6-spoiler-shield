@@ -39,6 +39,9 @@
   const GENERIC_SMALL = "h1,h2,h3,h4,h5,h6,p,blockquote,dd,dt,figcaption,a,td,summary,label,button";
 
   const host = location.hostname.toLowerCase();
+  // Never block the extension's own project page (issues, releases, README).
+  const SELF_PAGES = [/^https:\/\/github\.com\/Bushyon\/gta6-spoiler-shield(?:[\/?#]|$)/i];
+  const isSelfPage = () => SELF_PAGES.some((re) => re.test(location.href));
   const siteSelector = SITE_CONTAINERS
     .filter(([re]) => re.test(host))
     .flatMap(([, sels]) => sels)
@@ -272,8 +275,11 @@
   const pending = new Set();
   let flushScheduled = false;
 
+  let lastSelf = null;
   function flush() {
     flushScheduled = false;
+    const self = isSelfPage();
+    if (self !== lastSelf) { pending.clear(); apply(); return; }
     if (!active) { pending.clear(); return; }
     recheckMarked();
     for (const n of pending) scan(n);
@@ -325,13 +331,19 @@
 
   // ---------- lifecycle ----------
   function apply() {
+    lastSelf = isSelfPage();
     matcher = S.buildMatcher(settings.keywords);
-    const shouldRun = settings.enabled && !!matcher && !S.hostMatches(host, settings.disabledSites || []);
+    const shouldRun = settings.enabled && !!matcher && !isSelfPage() && !S.hostMatches(host, settings.disabledSites || []);
     unmarkAll();
     removeOverlay();
     lastGuardKey = "";
     active = shouldRun;
-    if (!active) { stopObserver(); scheduleReport(); return; }
+    if (!active) {
+      // On our own repo page keep watching, so SPA navigation away re-enables the shield.
+      if (isSelfPage() && settings.enabled) startObserver(); else stopObserver();
+      scheduleReport();
+      return;
+    }
     startObserver();
     if (document.body) scan(document.body);
     checkPageGuard();
