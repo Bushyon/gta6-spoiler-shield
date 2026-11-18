@@ -1,16 +1,25 @@
+<div align="center">
+
+<img src="src/icons/128.png" width="96" alt="GTA 6 Spoiler Shield icon">
+
 # GTA 6 Spoiler Shield
 
-A small, local-only browser extension (Firefox + Chrome, Manifest V3) that blurs or hides anything
-about GTA 6 on any website, so you can dodge spoilers until you've played it.
+**Dodge GTA 6 spoilers across the web.** A small, local-only browser extension for Firefox and Chrome
+that blurs or hides anything about GTA 6 until you've played it.
 
+[**🧪 Test page**](https://bushyon.github.io/gta6-spoiler-shield/) &nbsp;·&nbsp;
+[**⬇️ Download**](https://github.com/Bushyon/gta6-spoiler-shield/releases/latest) &nbsp;·&nbsp;
+[**🛠️ Install**](#install) &nbsp;·&nbsp;
+[**⚙️ Settings**](#tweaking)
 
-<img width="410" height="379" alt="extension menu" src="https://github.com/user-attachments/assets/48907c3e-3637-4271-8c9b-f829e64c8c27" />
+<br>
 
-<img width="963" height="493" alt="extension page block" src="https://github.com/user-attachments/assets/fb873045-4afd-4b89-9bfb-0e45a8665bf9" />
+<img src="https://github.com/user-attachments/assets/0c55977c-0c74-4646-9ae8-4becc4e10324" width="900" alt="YouTube search results with every GTA 6 video blurred">
+<br><sub>YouTube with the shield on: every GTA 6 video is blurred, everything else stays visible.</sub>
 
-<img width="2163" height="540" alt="blocked videos on ytb" src="https://github.com/user-attachments/assets/0c55977c-0c74-4646-9ae8-4becc4e10324" />
+</div>
 
-<img width="947" height="1152" alt="settings menu" src="https://github.com/user-attachments/assets/aa1f4fe4-4491-451c-a9d7-0438302745e8" />
+## Features
 
 - **Blurs the whole card**, thumbnail included, on YouTube, Reddit, X, Google and Twitch, and the
   nearest list item, article, heading or paragraph everywhere else.
@@ -25,6 +34,30 @@ about GTA 6 on any website, so you can dodge spoilers until you've played it.
 - **Badge counter** on the toolbar icon, a per-site pause switch in the popup, and an editable
   keyword list with regex support in the settings.
 - No network requests, analytics or accounts. Settings are stored in `storage.sync`.
+
+## Screenshots
+
+<div align="center">
+
+<img src="https://github.com/user-attachments/assets/fb873045-4afd-4b89-9bfb-0e45a8665bf9" width="640" alt="Full-page cover shown on a page about GTA 6">
+<br><sub>Page guard: pages that are about GTA 6 get covered until you choose to see them.</sub>
+
+<br><br>
+
+<table>
+  <tr>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/48907c3e-3637-4271-8c9b-f829e64c8c27" width="320" alt="Toolbar popup">
+      <br><sub>Toolbar popup: on/off switch, per-site pause, blocked count</sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/aa1f4fe4-4491-451c-a9d7-0438302745e8" width="320" alt="Settings page">
+      <br><sub>Settings: editable keywords, blur or hide, paused sites</sub>
+    </td>
+  </tr>
+</table>
+
+</div>
 
 ## Try it
 
