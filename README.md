@@ -70,13 +70,14 @@ to read it.
 
 ## Download
 
-Grab the latest `.zip` (Chrome) or `.xpi` (Firefox) from
-[**Releases**](https://github.com/Bushyon/gta6-spoiler-shield/releases/latest), or clone the repo and use `src/`.
+Grab the latest `-chrome.zip` or `-firefox.xpi` from
+[**Releases**](https://github.com/Bushyon/gta6-spoiler-shield/releases/latest). Or clone the repo:
+`src/` loads directly in Chrome, and `./build.sh` builds the Firefox package into `dist/`.
 
 ## Install
 
 ### Chrome / Chromium / Edge / Brave
-1. Unzip the release `.zip` (or clone the repo).
+1. Unzip the release `-chrome.zip` (or clone the repo).
 2. Go to `chrome://extensions` and turn on **Developer mode**.
 3. Click **Load unpacked** and pick the unzipped folder (or `src/`).
 
@@ -86,14 +87,15 @@ It stays installed across restarts. After editing files, click the reload icon o
 Release Firefox only allows **signed** add-ons to stay installed permanently. You have three options:
 
 1. **Temporary (simplest, until Firefox restarts):** go to `about:debugging#/runtime/this-firefox`,
-   click **Load Temporary Add-on…**, and pick `src/manifest.json`.
+   click **Load Temporary Add-on…**, and pick the release `-firefox.xpi` (or `dist/firefox/manifest.json`
+   after running `./build.sh`). Don't load `src/` in Firefox: it has Chrome's manifest.
 2. **Permanent, unsigned:** this needs Firefox Developer Edition, Nightly, ESR or an unbranded build.
-   Set `xpinstall.signatures.required` to `false` in `about:config`, run `./build.sh`, then drag
-   `dist/*.xpi` into Firefox. Some distro builds also honour this pref.
+   Set `xpinstall.signatures.required` to `false` in `about:config`, then drag the
+   `-firefox.xpi` into Firefox. Some distro builds also honour this pref.
 3. **Permanent, self-signed:** this needs a free addons.mozilla.org account. Get API keys at
    <https://addons.mozilla.org/developers/addon/api/key/>, then run:
    ```sh
-   npx web-ext sign --source-dir src --channel unlisted --api-key=... --api-secret=...
+   ./build.sh && npx web-ext sign --source-dir dist/firefox --channel unlisted --api-key=... --api-secret=...
    ```
    An *unlisted* add-on is signed but never published on the store. Install the `.xpi` it produces.
 
@@ -116,7 +118,7 @@ Open the popup and choose **Keywords & settings**.
 
 ```
 src/
-  manifest.json   MV3 manifest that works in both browsers
+  manifest.json   MV3 manifest (Chrome; build.sh derives the Firefox one)
   common.js       defaults and keyword → regex matcher (shared)
   content.js      DOM scanning, blurring, page overlay, MutationObserver
   shield.css      blur and hide styles
@@ -124,7 +126,7 @@ src/
   popup.*         toolbar popup
   options.*       settings page
 docs/index.html   test page (GitHub Pages)
-build.sh          zips src/ into dist/ (.zip for Chrome, .xpi for Firefox)
+build.sh          builds dist/chrome + -chrome.zip and dist/firefox + -firefox.xpi
 ```
 
 ## Contributing
