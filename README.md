@@ -10,7 +10,7 @@ about GTA 6 on any website, so you can dodge spoilers until you've played it.
 
 <img width="2163" height="540" alt="blocked videos on ytb" src="https://github.com/user-attachments/assets/0c55977c-0c74-4646-9ae8-4becc4e10324" />
 
-
+<img width="947" height="1152" alt="settings menu" src="https://github.com/user-attachments/assets/aa1f4fe4-4491-451c-a9d7-0438302745e8" />
 
 - **Blurs the whole card**, thumbnail included, on YouTube, Reddit, X, Google and Twitch, and the
   nearest list item, article, heading or paragraph everywhere else.
