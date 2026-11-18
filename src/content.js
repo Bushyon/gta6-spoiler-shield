@@ -39,9 +39,11 @@
   const GENERIC_SMALL = "h1,h2,h3,h4,h5,h6,p,blockquote,dd,dt,figcaption,a,td,summary,label,button";
 
   const host = location.hostname.toLowerCase();
-  // Never block the extension's own project page (issues, releases, README).
+  // Easter egg: the extension's own repo mentions GTA 6, so it gets blocked too,
+  // with a special message. "Show anyway" unlocks the whole page (no item blurs).
   const SELF_PAGES = [/^https:\/\/github\.com\/Bushyon\/gta6-spoiler-shield(?:[\/?#]|$)/i];
   const isSelfPage = () => SELF_PAGES.some((re) => re.test(location.href));
+  let selfUnlocked = false;
   const siteSelector = SITE_CONTAINERS
     .filter(([re]) => re.test(host))
     .flatMap(([, sels]) => sels)
@@ -83,6 +85,11 @@
     if (el.isContentEditable || el.closest("[contenteditable]:not([contenteditable='false'])")) return true;
     if (el.closest("gta-shield-overlay, head")) return true;
     return false;
+  }
+
+  function onlyInlineChildren(el) {
+    for (const c of el.querySelectorAll("*")) if (!INLINE_TAGS.has(c.tagName) && c.tagName !== "BR") return false;
+    return true;
   }
 
   function findContainer(el) {
@@ -153,7 +160,9 @@
         while (INLINE_TAGS.has(p.tagName) && p.parentElement && p.parentElement !== root.parentElement) p = p.parentElement;
         if (tested.has(p)) continue;
         tested.add(p);
-        if (p.textContent.length <= 300 && test(p.textContent)) mark(findContainer(p));
+        // Only for text-only blocks (a heading with <b> inside), never for wrappers
+        // whose other children are separate blocks.
+        if (p.textContent.length <= 300 && test(p.textContent) && onlyInlineChildren(p)) mark(findContainer(p));
       }
     }
 
@@ -173,6 +182,7 @@
   function pageKey() { return location.href.split("#")[0]; }
 
   function checkPageGuard() {
+    if (isSelfPage()) return selfUnlocked ? removeOverlay() : showOverlay(true);
     if (!settings.pageGuard) return removeOverlay();
     const key = pageKey() + "|" + document.title;
     if (key === lastGuardKey) return;
@@ -184,8 +194,13 @@
     else removeOverlay();
   }
 
-  function showOverlay() {
+  function showOverlay(self = false) {
     if (overlayHost?.isConnected) return;
+    const title = self ? "🛡️ Blocked by… myself" : "🛡️ Spoiler shield";
+    const body = self
+      ? "This is the GTA 6 Spoiler Shield's own GitHub page. It mentions GTA 6 a lot, so the shield did its job. Working as intended."
+      : "This page looks like it's about GTA 6.";
+    const showLabel = self ? "Let me in, I trust you" : "Show anyway";
     overlayHost = document.createElement("gta-shield-overlay");
     const shadow = overlayHost.attachShadow({ mode: "closed" });
     shadow.innerHTML = `
@@ -203,16 +218,20 @@
         .show { background: transparent; color: #ff9ccc; }
       </style>
       <div class="wrap"><div class="box">
-        <h1>🛡️ Spoiler shield</h1>
-        <p>This page looks like it's about GTA 6.</p>
+        <h1></h1>
+        <p></p>
         <button class="back">Get me out</button>
-        <button class="show">Show anyway</button>
+        <button class="show"></button>
       </div></div>`;
+    shadow.querySelector("h1").textContent = title;
+    shadow.querySelector("p").textContent = body;
+    shadow.querySelector(".show").textContent = showLabel;
     shadow.querySelector(".back").addEventListener("click", () => {
       if (history.length > 1) history.back();
       else location.href = "about:blank";
     });
     shadow.querySelector(".show").addEventListener("click", () => {
+      if (self) { selfUnlocked = true; apply(); return; }
       dismissedPages.add(pageKey());
       removeOverlay();
     });
@@ -333,7 +352,7 @@
   function apply() {
     lastSelf = isSelfPage();
     matcher = S.buildMatcher(settings.keywords);
-    const shouldRun = settings.enabled && !!matcher && !isSelfPage() && !S.hostMatches(host, settings.disabledSites || []);
+    const shouldRun = settings.enabled && !!matcher && !(isSelfPage() && selfUnlocked) && !S.hostMatches(host, settings.disabledSites || []);
     unmarkAll();
     removeOverlay();
     lastGuardKey = "";

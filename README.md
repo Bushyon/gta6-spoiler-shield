@@ -19,6 +19,15 @@ about GTA 6 on any website, so you can dodge spoilers until you've played it.
   keyword list with regex support in the settings.
 - No network requests, analytics or accounts. Settings are stored in `storage.sync`.
 
+## Try it
+
+**Test page:** <https://bushyon.github.io/gta6-spoiler-shield/>. It's full of *fake* GTA 6 headlines,
+so nothing gets spoiled. The page checks itself and tells you whether the shield caught everything.
+
+**Bonus:** with the extension installed, come back to this repo. The shield blocks its own GitHub
+page, because the page mentions GTA 6 constantly. That's a feature. Click **Let me in, I trust you**
+to read it.
+
 ## Download
 
 Grab the latest `.zip` (Chrome) or `.xpi` (Firefox) from
@@ -74,6 +83,7 @@ src/
   background.js   toolbar badge counter, opens settings on first install
   popup.*         toolbar popup
   options.*       settings page
+docs/index.html   test page (GitHub Pages)
 build.sh          zips src/ into dist/ (.zip for Chrome, .xpi for Firefox)
 ```
 

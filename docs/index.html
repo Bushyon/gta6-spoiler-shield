@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The title deliberately mentions the game so the full-page guard kicks in first. -->
+<title>GTA 6 Spoiler Shield — Test Page</title>
+<meta name="description" content="Fake headlines for checking that the spoiler shield extension is working. Nothing on this page spoils anything.">
+<style>
+  :root {
+    --bg: #fbf8ff; --fg: #1d1626; --muted: #6b6178; --card: #ffffff; --line: #e6def0;
+    --accent: #d6267a; --ok: #1a7f37; --bad: #c62828; --thumb1: #ff4fa3; --thumb2: #6f42ff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15111c; --fg: #f1ecf8; --muted: #a59bb4; --card: #1e1828; --line: #2f2740;
+      --accent: #ff4fa3; --ok: #4ac26b; --bad: #ff6b6b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 80px; }
+  h1 { font-size: 28px; margin: 0 0 6px; }
+  h2 { font-size: 18px; margin: 32px 0 4px; }
+  p.lead, .hint { color: var(--muted); margin: 0 0 12px; }
+  a { color: var(--accent); }
+  #status { position: sticky; top: 0; z-index: 5; margin: 20px 0; padding: 14px 16px; border-radius: 12px;
+    border: 1px solid var(--line); background: var(--card); font-weight: 600; }
+  #status.ok { border-color: var(--ok); color: var(--ok); }
+  #status.bad { border-color: var(--bad); color: var(--bad); }
+  .row { display: flex; gap: 12px; align-items: center; margin: 10px 0; }
+  .row > :first-child { flex: 1; min-width: 0; }
+  article { display: flex; gap: 12px; align-items: center; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px; }
+  .thumb { width: 96px; height: 54px; border-radius: 8px; flex: none;
+    background: linear-gradient(135deg, var(--thumb1), var(--thumb2)); }
+  img.thumb { object-fit: cover; }
+  article h3 { font-size: 16px; margin: 0; }
+  article small { color: var(--muted); }
+  .verdict { width: 112px; flex: none; font-size: 13px; text-align: right; }
+  .verdict.ok { color: var(--ok); } .verdict.bad { color: var(--bad); }
+  .expect { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  button { font: inherit; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--accent);
+    background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; }
+  [contenteditable] { background: var(--card); border: 1px dashed var(--line); border-radius: 12px; padding: 12px; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 14px; }
+  @media (max-width: 520px) {
+    .verdict { width: 76px; }
+    .thumb { width: 64px; height: 40px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>🛡️ Spoiler Shield test page</h1>
+  <p class="lead">Every headline here is <b>fake</b>. Nothing on this page spoils anything, so it's safe either way.</p>
+  <p class="hint">With the extension installed, you should first see a full-page cover (this tab's title mentions the game).
+    Click <b>Show anyway</b>, and then the cards marked "should blur" below should be blurred. Click one to reveal it.</p>
+  <p class="hint">Don't have it yet? <a href="https://github.com/Bushyon/gta6-spoiler-shield">Get it on GitHub</a>.</p>
+
+  <div id="status">Checking…</div>
+
+  <h2>1. Headlines</h2>
+  <div class="row"><article data-expect="blur"><div class="thumb"></div><div><h3>GTA 6 ending explained (fake test headline)</h3><small>Totally Real News</small></div></article><span class="verdict"></span></div>
+  <div class="row"><article data-expect="keep"><div class="thumb"></div><div><h3>Ten pasta recipes for a rainy weekend</h3><small>Food Weekly</small></div></article><span class="verdict"></span></div>
+  <div class="row"><article data-expect="blur"><div class="thumb"></div><div><h3>Grand Theft Auto VI review roundup (fake)</h3><small>Review Hub</small></div></article><span class="verdict"></span></div>
+  <div class="row"><article data-expect="blur"><div class="thumb"></div><div><h3>Lucia Caminos' big moment, explained (fake)</h3><small>Fan Theories</small></div></article><span class="verdict"></span></div>
+  <div class="row"><article data-expect="keep"><div class="thumb"></div><div><h3>GTA 5 any% speedrun record falls again</h3><small>Speedrun Digest</small></div></article><span class="verdict"></span></div>
+  <div class="row"><article data-expect="keep"><div class="thumb"></div><div><h3>Is GTA 60fps on old consoles a myth?</h3><small>Tech Corner</small></div></article><span class="verdict"></span></div>
+
+  <h2>2. Sneaky ones</h2>
+  <p class="hint">Here the keyword is hidden in an image's alt text, a link's URL, a hyphenated slug, or split across tags.</p>
+  <div class="row"><article data-expect="blur"><img class="thumb" alt="Grand Theft Auto VI screenshot" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='54'%3E%3Cdefs%3E%3ClinearGradient id='g'%3E%3Cstop offset='0' stop-color='%23ff4fa3'/%3E%3Cstop offset='1' stop-color='%236f42ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='96' height='54' fill='url(%23g)'/%3E%3C/svg%3E"><div><h3>Image whose alt text gives it away</h3><small>Thumbnail test</small></div></article><span class="verdict"></span></div>
+  <div class="row"><article data-expect="blur"><div class="thumb"></div><div><h3><a href="#/news/gta-6-mission-list-leak">You won't believe this list</a></h3><small>Clickbait with a telling URL</small></div></article><span class="verdict"></span></div>
+  <div class="row"><article data-expect="blur"><div class="thumb"></div><div><h3>gta_vi patch notes (fake)</h3><small>Odd spelling</small></div></article><span class="verdict"></span></div>
+  <div class="row"><article data-expect="blur"><div class="thumb"></div><div><h3>Everything new in GTA <b>VI</b>'s map (fake)</h3><small>Split across tags</small></div></article><span class="verdict"></span></div>
+
+  <h2>3. Endless scroll</h2>
+  <p class="hint">Sites keep adding content as you scroll. New fake headlines should get blurred the moment they appear.</p>
+  <div id="feed"></div>
+  <button id="more">Load more headlines</button>
+
+  <h2>4. Typing is never blocked</h2>
+  <p class="hint">The shield never blurs text boxes, so you can still write about the game. Type whatever you like here.</p>
+  <div class="row"><div contenteditable="true" data-expect="keep">Type here… for example "gta six is coming"</div><span class="verdict"></span></div>
+
+  <footer>
+    Part of <a href="https://github.com/Bushyon/gta6-spoiler-shield">Spoiler Shield</a>, a fan-made, open-source tool
+    that isn't affiliated with Rockstar. Bonus test: open the GitHub repo with the extension installed. 😉
+  </footer>
+</main>
+
+<script>
+  const fakes = [
+    "GTA 6 final mission breakdown (fake)",
+    "Jason Duval's secret, revealed (fake)",
+    "Every Vice City easter egg so far (fake)",
+    "Leonida map size compared (fake)",
+  ];
+  let i = 0;
+  function addFake(text) {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `<article data-expect="blur"><div class="thumb"></div><div><h3></h3><small>Just loaded</small></div></article><span class="verdict"></span>`;
+    row.querySelector("h3").textContent = text;
+    document.getElementById("feed").append(row);
+  }
+  document.getElementById("more").addEventListener("click", () => {
+    addFake(fakes[i++ % fakes.length]);
+    addFake("Cozy autumn soup ideas");
+    document.querySelector("#feed .row:last-child article").dataset.expect = "keep";
+  });
+  setTimeout(() => addFake(fakes[i++ % fakes.length]), 1500);
+
+  const isShielded = (el) => !!(el.closest("[data-gta-shield]") || el.querySelector("[data-gta-shield]"));
+  function check() {
+    let pass = 0, total = 0, any = false;
+    for (const el of document.querySelectorAll("[data-expect]")) {
+      const v = el.parentElement.querySelector(".verdict");
+      const state = el.closest("[data-gta-shield]")?.getAttribute("data-gta-shield");
+      const shielded = isShielded(el);
+      if (shielded) any = true;
+      const want = el.dataset.expect === "blur";
+      const ok = want ? shielded : !shielded;
+      total++; if (ok) pass++;
+      v.className = "verdict " + (ok ? "ok" : "bad");
+      v.innerHTML = `<span class="expect">should ${want ? "blur" : "stay"}</span>` +
+        (state === "revealed" ? "👀 revealed" : shielded ? (ok ? "✅ blocked" : "❌ blocked") : (ok ? "✅ visible" : "❌ visible"));
+    }
+    const s = document.getElementById("status");
+    if (!any) {
+      s.className = "bad";
+      s.textContent = "Extension not detected. Nothing is blurred. Is it installed and allowed on this site?";
+    } else {
+      s.className = pass === total ? "ok" : "bad";
+      s.textContent = pass === total
+        ? `Shield is working: ${pass}/${total} checks passed.`
+        : `${pass}/${total} checks passed. Something slipped through.`;
+    }
+  }
+  setInterval(check, 500);
+  check();
+</script>
+</body>
+</html>
