@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="ui.css">
+  <style>
+    body { width: 290px; padding: 14px; }
+    .count { font-size: 30px; font-weight: 700; line-height: 1; }
+    section { padding: 10px 0; border-top: 1px solid var(--line); }
+    section:first-of-type { border-top: 0; }
+    footer { display: flex; gap: 8px; padding-top: 10px; }
+    footer button { flex: 1; }
+  </style>
+</head>
+<body>
+  <section class="row">
+    <h1>🛡️ GTA 6 Spoiler Shield</h1>
+  </section>
+  <section id="perm" hidden>
+    <p class="warn" style="margin:0 0 8px">The shield needs access to all sites to work.</p>
+    <button class="primary" id="grant">Grant access</button>
+  </section>
+  <section>
+    <div class="count" id="count">–</div>
+    <div class="muted" id="countLabel">blocked on this page</div>
+  </section>
+  <section class="row">
+    <label for="enabled">Shield on</label>
+    <label class="switch"><input type="checkbox" id="enabled"><span></span></label>
+  </section>
+  <section class="row" id="siteRow">
+    <label for="site">Active on <b id="host"></b></label>
+    <label class="switch"><input type="checkbox" id="site"><span></span></label>
+  </section>
+  <footer>
+    <button id="options">Keywords & settings</button>
+  </footer>
+  <script src="common.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

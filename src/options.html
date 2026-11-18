@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>GTA 6 Spoiler Shield — Settings</title>
+  <link rel="stylesheet" href="ui.css">
+  <style>
+    main { max-width: 640px; margin: 0 auto; padding: 32px 16px 64px; }
+    h1 { font-size: 22px; margin-bottom: 4px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-top: 16px; }
+    textarea { width: 100%; min-height: 260px; font: 13px/1.5 ui-monospace, monospace; padding: 10px;
+      border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); resize: vertical; }
+    .opts label { display: block; margin: 4px 0; }
+    .actions { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+    #status { color: var(--muted); }
+    code { font-size: 12px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>🛡️ GTA 6 Spoiler Shield</h1>
+  <p class="muted" style="margin:0">Everything stays in your browser. Nothing is sent anywhere.</p>
+
+  <div class="card" id="perm" hidden>
+    <h2 class="warn">Site access needed</h2>
+    <p style="margin:0 0 10px">The shield can only read pages once you allow it on all sites.</p>
+    <button class="primary" id="grant">Grant access to all sites</button>
+  </div>
+
+  <div class="card">
+    <h2>Keywords</h2>
+    <p class="muted" style="margin:0 0 8px">One per line, case-insensitive. Spaces also match hyphens, dots, underscores
+      and no space at all (<code>GTA 6</code> matches <code>gta-6</code> and <code>GTA6</code>).
+      Wrap a line in slashes for a regex: <code>/gta\s*vi?\b/</code>.</p>
+    <textarea id="keywords" spellcheck="false"></textarea>
+    <div class="actions">
+      <button id="reset">Restore default keywords</button>
+      <span id="kwInfo" class="muted"></span>
+    </div>
+  </div>
+
+  <div class="card opts">
+    <h2>Behaviour</h2>
+    <label><input type="radio" name="mode" value="blur"> Blur matches (click one to reveal it)</label>
+    <label><input type="radio" name="mode" value="hide"> Hide matches completely</label>
+    <label style="margin-top:10px"><input type="checkbox" id="pageGuard">
+      Cover the whole page when its title or URL is about GTA 6 (also pauses videos)</label>
+  </div>
+
+  <div class="card">
+    <h2>Paused on these sites</h2>
+    <p class="muted" style="margin:0 0 8px">One domain per line. Subdomains are included.</p>
+    <textarea id="disabledSites" spellcheck="false" style="min-height:90px"></textarea>
+  </div>
+
+  <div class="actions">
+    <button class="primary" id="save">Save</button>
+    <span id="status"></span>
+  </div>
+</main>
+<script src="common.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

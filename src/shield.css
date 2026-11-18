@@ -1,0 +1,13 @@
+[data-gta-shield="hide"] {
+  display: none !important;
+}
+[data-gta-shield="blur"] {
+  filter: blur(14px) saturate(0.4) !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: filter 0.15s ease !important;
+}
+/* Stop hover-to-play previews and inner links from reacting while blurred. */
+[data-gta-shield="blur"] * {
+  pointer-events: none !important;
+}
