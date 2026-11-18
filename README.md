@@ -3,7 +3,7 @@
 A small, local-only browser extension (Firefox + Chrome, Manifest V3) that blurs or hides anything
 about GTA 6 on any website, so you can dodge spoilers until you've played it.
 
-<img width="349" height="332" alt="image" src="https://github.com/user-attachments/assets/92709dcc-bc39-4ee7-83d3-794bd67098c9" />
+<img width="410" height="379" alt="image" src="https://github.com/user-attachments/assets/48907c3e-3637-4271-8c9b-f829e64c8c27" />
 
 - **Blurs the whole card**, thumbnail included, on YouTube, Reddit, X, Google and Twitch, and the
   nearest list item, article, heading or paragraph everywhere else.
